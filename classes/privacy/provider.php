@@ -24,10 +24,13 @@
  * @copyright   2026 E-learning Touch' <contact@elearningtouch.com> (Maintainer)
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace local_plugininstalltimer\privacy;
+
 defined('MOODLE_INTERNAL') || die();
 
 class provider implements \core_privacy\local\metadata\provider, \core_privacy\local\request\plugin\provider {
+    
     public static function get_metadata(\core_privacy\local\metadata\collection $collection) : \core_privacy\local\metadata\collection {
         return $collection->add_database_table('local_plugininstalltimer', [
             'pluginname' => 'privacy:metadata:pluginname',
@@ -36,13 +39,23 @@ class provider implements \core_privacy\local\metadata\provider, \core_privacy\l
             'userid' => 'privacy:metadata:userid',
         ], 'privacy:metadata:tabledescription');
     }
+
     public static function get_contexts_for_userid(int $userid) : \core_privacy\local\request\contextlist {
         $contextlist = new \core_privacy\local\request\contextlist();
-        $contextlist->add_from_sql("SELECT c.id FROM {context} c JOIN {local_plugin_install_dates} p ON p.userid = :userid WHERE c.contextlevel = :level", ['userid' => $userid, 'level' => CONTEXT_SYSTEM]);
+        $contextlist->add_from_sql(
+            "SELECT c.id 
+             FROM {context} c 
+             JOIN {local_plugininstalltimer} p ON p.userid = :userid 
+             WHERE c.contextlevel = :level", 
+            ['userid' => $userid, 'level' => CONTEXT_SYSTEM]
+        );
         return $contextlist;
     }
-    public static function export_user_data(\core_privacy\local\request\context_data_preference $reader) {}
-    public static function delete_data_for_all_users_in_context(\context $context) {}
-    public static function delete_data_for_user(\core_privacy\local\request\approved_contextlist $contextlist) {}
 
+    public static function export_user_data(\core_privacy\local\request\approved_contextlist $contextlist) {
+    }
+    public static function delete_data_for_all_users_in_context(\context $context) {
+    }
+    public static function delete_data_for_user(\core_privacy\local\request\approved_contextlist $contextlist) {
+    }
 }
