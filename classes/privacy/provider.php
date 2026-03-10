@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class provider implements \core_privacy\local\metadata\provider, \core_privacy\local\request\plugin\provider {
     public static function get_metadata(\core_privacy\local\metadata\collection $collection) : \core_privacy\local\metadata\collection {
-        return $collection->add_database_table('local_plugin_install_dates', [
+        return $collection->add_database_table('local_plugininstalltimer', [
             'pluginname' => 'privacy:metadata:pluginname',
             'timeinstalled' => 'privacy:metadata:timeinstalled',
             'timemodified' => 'privacy:metadata:timemodified',
@@ -44,4 +44,5 @@ class provider implements \core_privacy\local\metadata\provider, \core_privacy\l
     public static function export_user_data(\core_privacy\local\request\context_data_preference $reader) {}
     public static function delete_data_for_all_users_in_context(\context $context) {}
     public static function delete_data_for_user(\core_privacy\local\request\approved_contextlist $contextlist) {}
+
 }
