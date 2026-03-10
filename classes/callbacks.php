@@ -49,7 +49,7 @@ class callbacks {
                            u.alternatename, 
                            u.firstnamephonetic, 
                            u.lastnamephonetic
-                    FROM {local_plugin_install_dates} p 
+                    FROM {local_plugininstalltimer} p 
                     LEFT JOIN {user} u ON u.id = p.userid";
             
             try {
@@ -215,4 +215,5 @@ class callbacks {
         return null;
     }
 }
+
 
