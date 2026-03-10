@@ -34,7 +34,7 @@ class callbacks {
         global $PAGE, $DB;
 
         $dbman = $DB->get_manager();
-        if (!$dbman->table_exists('local_plugin_install_dates')) {
+        if (!$dbman->table_exists('local_plugininstalltimer')) {
             return;
         }
 
@@ -148,7 +148,7 @@ class callbacks {
 
                 $log_data = self::get_real_installer_data($comp);
 
-                if ($rec = $DB->get_record('local_plugin_install_dates', ['pluginname' => $comp])) {
+                if ($rec = $DB->get_record('local_plugininstalltimer', ['pluginname' => $comp])) {
                     $updated = false;
 
                     if ($log_data && $log_data->time > $rec->timemodified) {
@@ -168,7 +168,7 @@ class callbacks {
                     }
 
                     if ($updated) {
-                        $DB->update_record('local_plugin_install_dates', $rec);
+                        $DB->update_record('local_plugininstalltimer', $rec);
                     }
                 } else {
                     $time = ($log_data) ? $log_data->time : $fdate;
@@ -185,7 +185,7 @@ class callbacks {
                         'timemodified' => $time, 
                         'userid' => $userid
                     ];
-                    $DB->insert_record('local_plugin_install_dates', $new);
+                    $DB->insert_record('local_plugininstalltimer', $new);
                 }
             }
         }
@@ -215,3 +215,4 @@ class callbacks {
         return null;
     }
 }
+
