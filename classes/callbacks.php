@@ -80,11 +80,7 @@ class callbacks {
                 
                 var run = function() {
                     var t = $('.admintable, #plugins-control-panel').last();
-                    
-                    // ANTI-DOUBLON ABSOLU : On vérifie si on a déjà posé notre verrou
                     if (!t.length || t.hasClass('plugin-timer-loaded')) return;
-                    
-                    // On pose le verrou IMMÉDIATEMENT (synchrone) avant que Mustache ne commence
                     t.addClass('plugin-timer-loaded');
 
                     Templates.render('local_plugininstalltimer/columns', { isheader: true }).then(function(html) {
@@ -218,3 +214,4 @@ class callbacks {
         return null;
     }
 }
+
